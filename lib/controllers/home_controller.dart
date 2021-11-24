@@ -4,7 +4,7 @@ import 'package:marvel_persons/models/character_model.dart';
 import 'package:marvel_persons/repositories/home_repository.dart';
 
 class HomeController extends GetxController {
-  Rx<List<Character>> character = Rx<List<Character>>([]);
+  RxList<Character> character = RxList<Character>();
   HomeRepository homeRepository = HomeRepository();
 
   final RxBool _refreshCategory = RxBool(true);
@@ -12,6 +12,9 @@ class HomeController extends GetxController {
 
   final RxBool _loading = RxBool(true);
   bool get loading => _loading.value;
+
+  int _currentPage = 10;
+  int soma = 10;
 
   @override
   void onInit() async {
@@ -31,5 +34,15 @@ class HomeController extends GetxController {
   Future<void> getCharacter() async {
     List<Character> characters = await homeRepository.getCharacter();
     character.value = characters;
+  }
+
+  Future<void> getCharacterLoadMore() async {
+    // soma + _currentPage == soma;
+    // soma;
+    print(soma);
+    // List<Character> _result = await homeRepository.getCharacterLoadMore(soma);
+
+    // character.addAll(_result);
+    character.refresh();
   }
 }
