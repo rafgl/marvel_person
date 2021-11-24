@@ -13,7 +13,6 @@ class HomeController extends GetxController {
   final RxBool _loading = RxBool(true);
   bool get loading => _loading.value;
 
-  int _currentPage = 10;
   int soma = 10;
 
   @override
@@ -39,7 +38,6 @@ class HomeController extends GetxController {
   Future<void> getCharacterLoadMore() async {
     // soma + _currentPage == soma;
     // soma;
-    print(soma);
     // List<Character> _result = await homeRepository.getCharacterLoadMore(soma);
 
     // character.addAll(_result);

@@ -20,7 +20,6 @@ class HomePage extends GetView<HomeController> {
       onNotification: (scrollState) {
         if (scrollState.metrics.extentAfter < 150) {
           controller.getCharacterLoadMore();
-          print("chegou");
         }
         return false;
       },
@@ -36,9 +35,11 @@ class HomePage extends GetView<HomeController> {
                   ),
                   centerTitle: true,
                 ),
+                // ignore: invalid_use_of_protected_member
                 body: controller.character.value.isNotEmpty
                     ? SafeArea(
                         child: ListView.builder(
+                        // ignore: invalid_use_of_protected_member
                         itemCount: controller.character.value.length,
                         itemBuilder: (context, index) => Card(
                           elevation: 6,
@@ -56,6 +57,7 @@ class HomePage extends GetView<HomeController> {
                                   width: 100,
                                   fit: BoxFit.cover,
                                   imageUrl:
+                                      // ignore: invalid_use_of_protected_member
                                       "${controller.character.value[index].thumbnail!.path}/landscape_medium.jpg",
                                   placeholder: (context, url) =>
                                       const CircularProgressIndicator(),
@@ -65,15 +67,14 @@ class HomePage extends GetView<HomeController> {
                               ),
                             ),
                             title:
-                                // const Text("Hulk"),
+                                // ignore: invalid_use_of_protected_member
                                 Text(controller.character.value[index].name
                                     .toString()),
-                            subtitle:
-                                //  const Text("Description"),
-                                Padding(
+                            subtitle: Padding(
                               padding:
                                   const EdgeInsets.only(top: 10, bottom: 10),
                               child: AutoSizeText(
+                                // ignore: invalid_use_of_protected_member
                                 controller.character.value[index].description
                                     .toString(),
                                 maxLines: 2,
@@ -96,6 +97,7 @@ class HomePage extends GetView<HomeController> {
                                 const CharacterDetailPage(),
                                 binding: CharacterDetailBinding(),
                                 arguments: CharacterDetailsArgs(
+                                  // ignore: invalid_use_of_protected_member
                                   character: controller.character.value[index],
                                 ),
                               );

@@ -18,6 +18,7 @@ dependencies:
   auto_size_text: ^3.0.0
   dio: ^4.0.0
   percent_indicator: ^3.0.1
+  loading_gifs: ^0.3.0
 
 dev_dependencies:
   flutter_test:

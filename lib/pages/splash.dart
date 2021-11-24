@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:loading_gifs/loading_gifs.dart';
 import 'package:marvel_persons/controllers/splash_controller.dart';
 import 'package:marvel_persons/utils/colors.dart';
 
@@ -10,8 +11,27 @@ class SplashPage extends GetView<SplashController> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: const BoxDecoration(color: MyColors.blue),
-        child: const Center(child: Text("fewfew")),
+        width: MediaQuery.of(context).size.width,
+        decoration: const BoxDecoration(color: MyColors.red),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              'assets/img/logo.png',
+              width: 200,
+            ),
+            const SizedBox(height: 30),
+            const Text(
+              "Marvel Persons",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+              ),
+            ),
+            const SizedBox(height: 10),
+            Image.asset(cupertinoActivityIndicatorSmall, width: 150),
+          ],
+        ),
       ),
     );
   }
