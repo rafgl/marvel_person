@@ -2,11 +2,11 @@ import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:marvel_persons/models/args/characterDetailsArgs.dart';
 import 'package:marvel_persons/models/character_model.dart';
-import 'package:marvel_persons/repositories/home_repository.dart';
+import 'package:marvel_persons/repositories/get_for_api_repository.dart';
 
-class CharacterDetailController extends GetxController {
-  Rx<List<Character>> character = Rx<List<Character>>([]);
-  HomeRepository homeRepository = HomeRepository();
+class HQSDetailController extends GetxController {
+  Rx<List<CharacterModel>> character = Rx<List<CharacterModel>>([]);
+  GetAPIRepository homeRepository = GetAPIRepository();
 
   final RxBool _refreshCategory = RxBool(true);
   bool get refreshCategory => _refreshCategory.value;
@@ -15,25 +15,13 @@ class CharacterDetailController extends GetxController {
   bool get loading => _loading.value;
 
   late final CharacterDetailsArgs characterDetailsArgs;
-  late final Character characters;
+  late final CharacterModel characters;
 
   @override
   void onInit() async {
     super.onInit();
     characterDetailsArgs = Get.arguments as CharacterDetailsArgs;
     characters = characterDetailsArgs.character!;
+    print(characterDetailsArgs.character!.comics!.items!.length);
   }
-
-  // @override
-  // Future<void> refresh() async {
-  //   _loading.value = true;
-  //   await getCharacter();
-
-  //   _loading.value = false;
-  // }
-
-  // Future<void> getCharacter() async {
-  //   List<Character> characters = await homeRepository.getCharacter();
-  //   character.value = characters;
-  // }
 }

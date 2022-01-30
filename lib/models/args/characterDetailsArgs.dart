@@ -2,7 +2,7 @@
 import 'package:marvel_persons/models/character_model.dart';
 
 class CharacterDetailsArgs {
-  Character? character;
+  CharacterModel? character;
 
   CharacterDetailsArgs({this.character});
 }

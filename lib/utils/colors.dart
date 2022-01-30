@@ -5,4 +5,5 @@ class MyColors {
   static const red = Color(0xffed1d24);
   static const blue = Colors.blue;
   static const black = Colors.black;
+  static const error = Colors.red;
 }

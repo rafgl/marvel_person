@@ -1,19 +1,34 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:marvel_persons/services/auth.dart';
 import 'package:marvel_persons/services/http.dart';
-import 'package:marvel_persons/utils/pages.dart';
-import 'package:marvel_persons/utils/rutes.dart';
+import 'package:marvel_persons/services/storage.dart';
 import 'package:marvel_persons/utils/strings.dart';
+import 'utils/pages.dart';
+import 'utils/routes.dart';
 
-import 'services/storage.dart';
+// flutter build apk --split-per-abi
+// flutter build appbundle
+// flutter pub cache repair
+// flutter build ios
+// ./gradlew signingReport
+// gradlew signingReport
+// flutter pub run flutter_launcher_icons:main
 
 Future<void> initApp() async {
-  await Get.putAsync(() => StorageService().init());
-  Get.put(HttpService());
+  await Firebase.initializeApp();
 
-  runApp(const MyApp());
+  await Get.putAsync(() => StorageService().init());
+
+  Get.put(HttpService());
+  Get.put(AuthService());
+
+  runApp(MyApp());
 }
 
 Future<void> main() async {
@@ -25,13 +40,15 @@ Future<void> main() async {
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
-
   @override
   _MyAppState createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
+  static FirebaseAnalytics analytics = FirebaseAnalytics();
+  static FirebaseAnalyticsObserver observer =
+      FirebaseAnalyticsObserver(analytics: analytics);
+
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
@@ -41,6 +58,7 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       initialRoute: Routes.splash,
       unknownRoute: AppPages.notFound,
+      navigatorObservers: <NavigatorObserver>[observer],
       getPages: AppPages.pages,
       defaultTransition: Transition.fade,
       themeMode: ThemeMode.light,

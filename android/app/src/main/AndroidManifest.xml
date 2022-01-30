@@ -1,8 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.marvel_persons">
+    package="com.marvel.persons">
     <uses-permission android:name="android.permission.INTERNET" />
    <application
-        android:label="marvel_persons"
+        android:label="Marvel Persons"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

@@ -1,46 +1,7 @@
-// ignore_for_file: constant_identifier_names
-
 import 'dart:convert';
 
-class Data {
-  Data({
-    this.offset,
-    this.limit,
-    this.total,
-    this.count,
-    this.results,
-  });
-
-  int? offset;
-  int? limit;
-  int? total;
-  int? count;
-  List<Character>? results;
-
-  factory Data.fromJson(String str) => Data.fromMap(json.decode(str));
-
-  String toJson() => json.encode(toMap());
-
-  factory Data.fromMap(Map<String, dynamic> json) => Data(
-        offset: json["offset"],
-        limit: json["limit"],
-        total: json["total"],
-        count: json["count"],
-        results: List<Character>.from(
-            json["results"].map((x) => Character.fromJson(x))),
-      );
-
-  Map<String, dynamic> toMap() => {
-        "offset": offset,
-        "limit": limit,
-        "total": total,
-        "count": count,
-        "results": List<dynamic>.from(results!.map((x) => x.toJson())),
-      };
-}
-
-class Character {
-  Character({
+class CharacterModel {
+  CharacterModel({
     this.id,
     this.name,
     this.description,
@@ -66,11 +27,12 @@ class Character {
   Comics? events;
   List<Url>? urls;
 
-  factory Character.fromJson(String str) => Character.fromMap(json.decode(str));
+  factory CharacterModel.fromJson(String str) =>
+      CharacterModel.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
-  factory Character.fromMap(Map<String, dynamic> json) => Character(
+  factory CharacterModel.fromMap(Map<String, dynamic> json) => CharacterModel(
         id: json["id"],
         name: json["name"],
         description: json["description"],
