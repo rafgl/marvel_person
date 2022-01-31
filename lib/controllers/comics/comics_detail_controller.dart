@@ -1,11 +1,10 @@
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:marvel_persons/models/args/characterDetailsArgs.dart';
-import 'package:marvel_persons/models/character_model.dart';
+import 'package:marvel_persons/models/args/comicsDetailsArgs.dart';
+import 'package:marvel_persons/models/comics_model.dart';
 import 'package:marvel_persons/repositories/get_for_api_repository.dart';
 
 class ComicsDetailController extends GetxController {
-  Rx<List<CharacterModel>> character = Rx<List<CharacterModel>>([]);
   GetAPIRepository homeRepository = GetAPIRepository();
 
   final RxBool _refreshCategory = RxBool(true);
@@ -14,14 +13,15 @@ class ComicsDetailController extends GetxController {
   final RxBool _loading = RxBool(true);
   bool get loading => _loading.value;
 
-  late final CharacterDetailsArgs characterDetailsArgs;
-  late final CharacterModel characters;
+  late final ComicsDetailsArgs comicDetailsArgs;
+  late final ComicsModel comics;
 
   @override
   void onInit() async {
     super.onInit();
-    characterDetailsArgs = Get.arguments as CharacterDetailsArgs;
-    characters = characterDetailsArgs.character!;
-    print(characterDetailsArgs.character!.comics!.items!.length);
+    comicDetailsArgs = Get.arguments as ComicsDetailsArgs;
+    comics = comicDetailsArgs.comics!;
+    print(
+        "comics.characters!.items!.length ${comics.characters!.items!.length}");
   }
 }

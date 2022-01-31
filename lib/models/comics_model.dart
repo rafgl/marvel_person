@@ -26,9 +26,7 @@ class ComicsModel {
     this.thumbnail,
     this.images,
     this.creators,
-    this.characters,
     this.stories,
-    this.events,
   });
 
   int? id;
@@ -57,14 +55,14 @@ class ComicsModel {
   Thumbnail? thumbnail;
   List<Thumbnail>? images;
   Creators? creators;
-  Characters? characters;
   Stories? stories;
-  Characters? events;
+  Characters? characters;
 
   ComicsModel.fromJson(Map<String, dynamic> json) {
     id = json["id"] ?? "";
     title = json["title"] ?? "";
     description = json["description"] ?? "";
+    isbn = json["isbn"] ?? "";
     pageCount = json["pageCount"] ?? "";
     series = json["series"] == null ? null : Series.fromJson(json["series"]);
     collections = json["collections"] == null
@@ -74,38 +72,20 @@ class ComicsModel {
         ? null
         : new List<Series>.from(
             json["collectedIssues"].map((x) => Series.fromJson(x)));
+    creators = json["creators"] == null
+        ? null
+        : new Creators.fromJson(json["creators"]);
     thumbnail = json["thumbnail"] == null
         ? null
         : new Thumbnail.fromJson(json["thumbnail"]);
+    characters = json["characters"] == null
+        ? null
+        : Characters.fromJson(json["characters"]);
+    images = json["images"] == null
+        ? null
+        : List<Thumbnail>.from(
+            json["images"].map((x) => Thumbnail.fromJson(x)));
   }
-}
-
-class Characters {
-  Characters({
-    this.available,
-    this.collectionUri,
-    this.items,
-    this.returned,
-  });
-
-  int? available;
-  String? collectionUri;
-  List<Series>? items;
-  int? returned;
-
-  factory Characters.fromJson(Map<String, dynamic> json) => Characters(
-        available: json["available"],
-        collectionUri: json["collectionURI"],
-        items: List<Series>.from(json["items"].map((x) => Series.fromJson(x))),
-        returned: json["returned"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "available": available,
-        "collectionURI": collectionUri,
-        "items": List<dynamic>.from(items!.map((x) => x.toJson())),
-        "returned": returned,
-      };
 }
 
 class Series {
@@ -128,82 +108,56 @@ class Series {
       };
 }
 
-class Creators {
-  Creators({
-    this.available,
-    this.collectionUri,
+class Characters {
+  Characters({
     this.items,
-    this.returned,
   });
 
-  int? available;
-  String? collectionUri;
-  List<CreatorsItem>? items;
-  int? returned;
+  List<Series>? items;
 
-  factory Creators.fromJson(Map<String, dynamic> json) => Creators(
-        available: json["available"] ?? "",
-        collectionUri: json["collectionURI"] ?? "",
+  factory Characters.fromJson(Map<String, dynamic> json) => Characters(
         items: json["items"] == null
             ? null
-            : List<CreatorsItem>.from(
-                json["items"].map((x) => CreatorsItem.fromJson(x))),
-        returned: json["returned"] ?? "",
+            : List<Series>.from(json["items"].map((x) => Series.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
-        "available": available,
-        "collectionURI": collectionUri,
         "items": List<dynamic>.from(items!.map((x) => x.toJson())),
-        "returned": returned,
+      };
+}
+
+class Creators {
+  Creators({
+    this.items,
+  });
+
+  List<CreatorsItem>? items;
+
+  factory Creators.fromJson(Map<String, dynamic> json) => Creators(
+        items: List<CreatorsItem>.from(
+            json["items"].map((x) => CreatorsItem.fromJson(x))),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "items": List<dynamic>.from(items!.map((x) => x.toJson())),
       };
 }
 
 class CreatorsItem {
   CreatorsItem({
-    this.resourceUri,
     this.name,
-    this.role,
   });
 
-  String? resourceUri;
   String? name;
-  Role? role;
 
   factory CreatorsItem.fromJson(Map<String, dynamic> json) => CreatorsItem(
-        resourceUri: json["resourceURI"],
-        name: json["name"],
-        role: json["role"],
+        name: json["name"] ?? "",
       );
 
   Map<String, dynamic> toJson() => {
-        "resourceURI": resourceUri,
         "name": name,
-        "role": role,
       };
 }
-
-enum Role {
-  EDITOR,
-  WRITER,
-  PENCILLER,
-  PENCILLER_COVER,
-  COLORIST,
-  INKER,
-  LETTERER,
-  PENCILER
-}
-
-final roleValues = EnumValues({
-  "colorist": Role.COLORIST,
-  "editor": Role.EDITOR,
-  "inker": Role.INKER,
-  "letterer": Role.LETTERER,
-  "penciler": Role.PENCILER,
-  "penciller": Role.PENCILLER,
-  "penciller (cover)": Role.PENCILLER_COVER,
-  "writer": Role.WRITER
-});
 
 class Date {
   Date({

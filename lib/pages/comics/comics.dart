@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -22,12 +23,10 @@ class ComicsPage extends GetView<ComicsController> {
             ),
             centerTitle: true,
           ),
-          // ignore: invalid_use_of_protected_member
-          body: controller.comic.value.isNotEmpty
+          body: controller.comic.isNotEmpty
               ? SafeArea(
                   child: ListView.builder(
-                    // ignore: invalid_use_of_protected_member
-                    itemCount: controller.comic.value.length,
+                    itemCount: controller.comic.length,
                     itemBuilder: (context, index) => Card(
                       elevation: 6,
                       margin: const EdgeInsets.all(10),
@@ -44,8 +43,7 @@ class ComicsPage extends GetView<ComicsController> {
                               width: 100,
                               fit: BoxFit.cover,
                               imageUrl:
-                                  // ignore: invalid_use_of_protected_member
-                                  "${controller.comic.value[index].thumbnail!.path}/landscape_medium.jpg",
+                                  "${controller.comic[index].thumbnail!.path}/landscape_medium.jpg",
                               placeholder: (context, url) =>
                                   const CircularProgressIndicator(),
                               errorWidget: (context, url, error) =>
@@ -61,10 +59,10 @@ class ComicsPage extends GetView<ComicsController> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              // AutoSizeText(
-                              //   "Número de HQs: ${controller.comic[index].comics!.available.toString()}",
-                              //   maxLines: 2,
-                              // ),
+                              AutoSizeText(
+                                "Serie: ${controller.comic[index].series!.name.toString()}",
+                                maxLines: 2,
+                              ),
                             ],
                           ),
                         ),
@@ -74,9 +72,9 @@ class ComicsPage extends GetView<ComicsController> {
                             Get.to(
                               const ComicsDetailsPage(),
                               binding: ComicsDetailBinding(),
-                              // arguments: creatorDetailsArgs(
-                              //   creator: controller.creator.value[index],
-                              // ),
+                              arguments: ComicsDetailsArgs(
+                                comics: controller.comic[index],
+                              ),
                             );
                           },
                         ),

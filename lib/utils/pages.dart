@@ -1,5 +1,5 @@
 import 'package:get/route_manager.dart';
-import 'package:marvel_persons/bindings/comics/comics_controller.dart';
+import 'package:marvel_persons/bindings/comics/comics_bindings.dart';
 import 'package:marvel_persons/bindings/creators/creators_bindings.dart';
 import 'package:marvel_persons/bindings/dashboard_bindings.dart';
 import 'package:marvel_persons/bindings/character/character_bindings.dart';

@@ -5,7 +5,6 @@ import 'package:marvel_persons/models/character_model.dart';
 import 'package:marvel_persons/repositories/get_for_api_repository.dart';
 
 class CharacterDetailController extends GetxController {
-  Rx<List<CharacterModel>> character = Rx<List<CharacterModel>>([]);
   GetAPIRepository homeRepository = GetAPIRepository();
 
   final RxBool _refreshCategory = RxBool(true);
