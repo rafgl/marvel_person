@@ -4,7 +4,7 @@ import 'package:marvel_persons/models/args/characterDetailsArgs.dart';
 import 'package:marvel_persons/models/character_model.dart';
 import 'package:marvel_persons/repositories/get_for_api_repository.dart';
 
-class HQSDetailController extends GetxController {
+class ComicsDetailController extends GetxController {
   Rx<List<CharacterModel>> character = Rx<List<CharacterModel>>([]);
   GetAPIRepository homeRepository = GetAPIRepository();
 

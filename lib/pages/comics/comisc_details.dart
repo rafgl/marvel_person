@@ -1,10 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:marvel_persons/controllers/hqs/hqs_detail_controller.dart';
+import 'package:marvel_persons/controllers/comics/comics_detail_controller.dart';
 
-class HQSDetailPage extends GetView<HQSDetailController> {
-  const HQSDetailPage({Key? key}) : super(key: key);
+class ComicsDetailsPage extends GetView<ComicsDetailController> {
+  const ComicsDetailsPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

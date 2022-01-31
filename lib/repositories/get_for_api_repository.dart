@@ -3,6 +3,7 @@
 import 'package:get/get.dart';
 import 'package:marvel_persons/models/character_model.dart';
 import 'package:marvel_persons/models/creators_model.dart';
+import 'package:marvel_persons/models/comics_model.dart';
 import 'package:marvel_persons/services/http.dart';
 import 'package:marvel_persons/utils/config.dart';
 
@@ -42,8 +43,8 @@ class GetAPIRepository {
 
   Future<List<CreatorModel>> getCreator() async {
     try {
-      final response = await _httpProvider
-          .get('creators?ts=1&apikey=${Config.PUBLICKEY}&hash=${Config.HASH}');
+      final response = await _httpProvider.get(
+          'creators?ts=1&apikey=${Config.PUBLICKEY}&hash=${Config.HASH}&limit=50');
 
       List<CreatorModel> posts = List.from(response.body['data']['results'])
           .map(
@@ -56,16 +57,16 @@ class GetAPIRepository {
     }
   }
 
-  Future<List<CharacterModel>> getHQS() async {
+  Future<List<ComicsModel>> getComics() async {
     try {
       final response = await _httpProvider.get(
-          'comicsc?ts=1&apikey=${Config.PUBLICKEY}&hash=${Config.HASH}&limit=50');
-      List<CharacterModel> posts = List.from(response.body['data']['results'])
-          .map(
-            (e) => CharacterModel.fromMap(e),
-          )
-          .toList();
-      return posts;
+          'comics?ts=1&apikey=${Config.PUBLICKEY}&hash=${Config.HASH}&limit=50');
+      print("fewfew");
+      print(response.body['data']['results']);
+      List<dynamic> parsedListJson = response.body['data']['results'];
+      List<ComicsModel> itemsList = List<ComicsModel>.from(
+          parsedListJson.map((i) => ComicsModel.fromJson(i)));
+      return itemsList;
     } catch (e) {
       return [];
     }

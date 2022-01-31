@@ -1,19 +1,15 @@
-// ignore_for_file: use_key_in_widget_constructors
-
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:marvel_persons/bindings/character/character_details_bindings.dart';
-import 'package:marvel_persons/controllers/character/character_controller.dart';
-import 'package:marvel_persons/models/args/characterDetailsArgs.dart';
+import 'package:marvel_persons/bindings/comics/comics_details_bindings.dart';
+import 'package:marvel_persons/controllers/comics/comics_controller.dart';
+import 'package:marvel_persons/models/args/comicsDetailsArgs.dart';
 import 'package:marvel_persons/utils/colors.dart';
 import 'package:shimmer/shimmer.dart';
 
-import 'character_details.dart';
+import 'comisc_details.dart';
 
-class CharacterPage extends GetView<CharacterController> {
+class ComicsPage extends GetView<ComicsController> {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
@@ -27,11 +23,11 @@ class CharacterPage extends GetView<CharacterController> {
             centerTitle: true,
           ),
           // ignore: invalid_use_of_protected_member
-          body: controller.character.value.isNotEmpty
+          body: controller.comic.value.isNotEmpty
               ? SafeArea(
                   child: ListView.builder(
                     // ignore: invalid_use_of_protected_member
-                    itemCount: controller.character.value.length,
+                    itemCount: controller.comic.value.length,
                     itemBuilder: (context, index) => Card(
                       elevation: 6,
                       margin: const EdgeInsets.all(10),
@@ -49,7 +45,7 @@ class CharacterPage extends GetView<CharacterController> {
                               fit: BoxFit.cover,
                               imageUrl:
                                   // ignore: invalid_use_of_protected_member
-                                  "${controller.character.value[index].thumbnail!.path}/landscape_medium.jpg",
+                                  "${controller.comic.value[index].thumbnail!.path}/landscape_medium.jpg",
                               placeholder: (context, url) =>
                                   const CircularProgressIndicator(),
                               errorWidget: (context, url, error) =>
@@ -58,22 +54,17 @@ class CharacterPage extends GetView<CharacterController> {
                           ),
                         ),
                         title: Text(
-                          controller.character[index].name.toString(),
+                          controller.comic[index].title.toString(),
                         ),
                         subtitle: Padding(
                           padding: const EdgeInsets.only(top: 10, bottom: 10),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              AutoSizeText(
-                                "Número de Comics: ${controller.character[index].comics!.available.toString()}",
-                                maxLines: 2,
-                              ),
-                              AutoSizeText(
-                                controller.character[index].description
-                                    .toString(),
-                                maxLines: 2,
-                              ),
+                              // AutoSizeText(
+                              //   "Número de HQs: ${controller.comic[index].comics!.available.toString()}",
+                              //   maxLines: 2,
+                              // ),
                             ],
                           ),
                         ),
@@ -81,21 +72,20 @@ class CharacterPage extends GetView<CharacterController> {
                           icon: const Icon(Icons.arrow_forward_outlined),
                           onPressed: () {
                             Get.to(
-                              const CharacterDetailPage(),
-                              binding: CharacterDetailBinding(),
-                              // arguments: CharacterDetailsArgs(
-                              //   character: controller.character.value[index],
+                              const ComicsDetailsPage(),
+                              binding: ComicsDetailBinding(),
+                              // arguments: creatorDetailsArgs(
+                              //   creator: controller.creator.value[index],
                               // ),
                             );
                           },
                         ),
                         onTap: () {
                           Get.to(
-                            const CharacterDetailPage(),
-                            binding: CharacterDetailBinding(),
-                            arguments: CharacterDetailsArgs(
-                              // ignore: invalid_use_of_protected_member
-                              character: controller.character.value[index],
+                            const ComicsDetailsPage(),
+                            binding: ComicsDetailBinding(),
+                            arguments: ComicsDetailsArgs(
+                              comics: controller.comic[index],
                             ),
                           );
                         },

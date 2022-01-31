@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:marvel_persons/models/character_model.dart';
 import 'package:marvel_persons/models/creators_model.dart';
+import 'package:marvel_persons/models/comics_model.dart';
 import 'package:marvel_persons/models/listsForPersons.dart';
 import 'package:marvel_persons/repositories/get_for_api_repository.dart';
 import 'package:marvel_persons/services/auth.dart';
@@ -14,7 +15,7 @@ class DashboardController extends GetxController {
 
   RxList<CharacterModel> character = RxList<CharacterModel>();
   RxList<CreatorModel> creator = RxList<CreatorModel>();
-  RxList<CharacterModel> comicsc = RxList<CharacterModel>();
+  RxList<ComicsModel> comic = RxList<ComicsModel>();
 
   GetAPIRepository characterRepository = GetAPIRepository();
   RxList<ListsForPersons> listsForPersons = RxList<ListsForPersons>();
@@ -28,8 +29,8 @@ class DashboardController extends GetxController {
     _loading.value = true;
 
     await getCharacter();
-
     await getCreator();
+    await getComics();
 
     listsForPersons.add(
       ListsForPersons(
@@ -50,8 +51,9 @@ class DashboardController extends GetxController {
     );
     listsForPersons.add(
       ListsForPersons(
-        title: "HQs",
-        route: Routes.hqs,
+        title: "Comics",
+        route: Routes.comics,
+        count: comic.length,
         color: Colors.deepPurple,
       ),
     );
@@ -68,8 +70,9 @@ class DashboardController extends GetxController {
     creator.value = creators;
   }
 
-  getHQS() async {
-    List<CharacterModel> characters = await characterRepository.getCharacter();
-    character.value = characters;
+  getComics() async {
+    List<ComicsModel> comics = await characterRepository.getComics();
+    comic.value = comics;
+    print(comics);
   }
 }

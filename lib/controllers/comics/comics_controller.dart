@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
-import 'package:marvel_persons/models/creators_model.dart';
+import 'package:marvel_persons/models/comics_model.dart';
 import 'package:marvel_persons/repositories/get_for_api_repository.dart';
 
-class CreatorsController extends GetxController {
-  RxList<CreatorModel> creator = RxList<CreatorModel>();
+class ComicsController extends GetxController {
+  RxList<ComicsModel> comic = RxList<ComicsModel>();
   GetAPIRepository personsRepository = GetAPIRepository();
 
   final RxBool _refreshCategory = RxBool(true);
@@ -11,8 +11,6 @@ class CreatorsController extends GetxController {
 
   final RxBool _loading = RxBool(true);
   bool get loading => _loading.value;
-
-  int soma = 10;
 
   @override
   void onInit() async {
@@ -22,7 +20,7 @@ class CreatorsController extends GetxController {
   }
 
   Future<void> getCreator() async {
-    List<CreatorModel> creators = await personsRepository.getCreator();
-    creator.value = creators;
+    List<ComicsModel> comics = await personsRepository.getComics();
+    comic.value = comics;
   }
 }

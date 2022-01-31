@@ -6,5 +6,5 @@ class Routes {
   static const dashboard = '/dashboard';
   static const characters = '/persons';
   static const creators = '/creators';
-  static const hqs = '/hqs';
+  static const comics = '/comics';
 }
