@@ -4,7 +4,7 @@ import 'package:marvel_persons/models/character_model.dart';
 import 'package:marvel_persons/models/creators_model.dart';
 import 'package:marvel_persons/models/comics_model.dart';
 import 'package:marvel_persons/models/listsForPersons.dart';
-import 'package:marvel_persons/repositories/get_for_api_repository.dart';
+import 'package:marvel_persons/repositories/marvel_repository.dart';
 import 'package:marvel_persons/services/auth.dart';
 import 'package:marvel_persons/utils/routes.dart';
 

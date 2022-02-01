@@ -1,6 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:marvel_persons/controllers/login_controller.dart';
@@ -23,6 +22,10 @@ class LoginPage extends GetView<LoginController> {
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                Image.asset(
+                  'assets/img/logo.png',
+                  width: 100,
+                ),
                 Text(
                   'Marvel Persons',
                   textAlign: TextAlign.center,
@@ -32,9 +35,7 @@ class LoginPage extends GetView<LoginController> {
                     color: Colors.white,
                   ),
                 ),
-                SizedBox(height: 36),
-                SizedBox(height: 36),
-                SizedBox(height: 70),
+                SizedBox(height: 400),
                 Padding(
                   padding:
                       const EdgeInsets.only(left: 30, bottom: 8, right: 30),
@@ -43,14 +44,7 @@ class LoginPage extends GetView<LoginController> {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10.0))),
                     onPressed: () {
-                      if (controller.checkBoxValue.value) {
-                        controller.loginWithGoogle();
-                      } else {
-                        Get.rawSnackbar(
-                          message: 'trings.you_must_accept_term_of_use.tr',
-                          backgroundColor: Colors.red,
-                        );
-                      }
+                      controller.loginWithGoogle();
                     },
                     color: Color(0xffEA4335),
                     padding: EdgeInsets.fromLTRB(0, 20, 10, 20),
@@ -60,8 +54,8 @@ class LoginPage extends GetView<LoginController> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(right: 10),
-                          child: SvgPicture.asset(
-                            'assets/svg/google-icon.svg',
+                          child: Image.asset(
+                            'assets/img/google.png',
                             height: 20,
                             width: 50,
                           ),
@@ -79,8 +73,7 @@ class LoginPage extends GetView<LoginController> {
                     ),
                   ),
                 ),
-                SizedBox(height: 36),
-                SizedBox(height: 48),
+                SizedBox(height: 100),
               ],
             ),
           ),

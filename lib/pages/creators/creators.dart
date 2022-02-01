@@ -3,6 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:marvel_persons/bindings/creators/creators_details_bindings.dart';
+import 'package:marvel_persons/components/input_text.dart';
 import 'package:marvel_persons/controllers/creators/creators_controller.dart';
 import 'package:marvel_persons/models/args/creatorDetailsArgs.dart';
 import 'package:marvel_persons/pages/creators/creators_details.dart';
@@ -16,9 +17,13 @@ class CreatorsPage extends GetView<CreatorsController> {
       return Scaffold(
           appBar: AppBar(
             backgroundColor: MyColors.red,
-            title: Image.asset(
-              'assets/img/logo.png',
-              width: 100,
+            title: InputText(
+              hintText: "Pesquisar...",
+              textInputType: TextInputType.name,
+              showTitle: false,
+              onFieldSubmitted: controller.getCreatorForName,
+              textCapitalization: TextCapitalization.words,
+              textController: controller.filterSearch,
             ),
             centerTitle: true,
           ),

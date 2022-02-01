@@ -3,11 +3,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:marvel_persons/bindings/comics/comics_details_bindings.dart';
+import 'package:marvel_persons/components/input_text.dart';
 import 'package:marvel_persons/controllers/comics/comics_controller.dart';
 import 'package:marvel_persons/models/args/comicsDetailsArgs.dart';
 import 'package:marvel_persons/utils/colors.dart';
 import 'package:shimmer/shimmer.dart';
-
 import 'comisc_details.dart';
 
 class ComicsPage extends GetView<ComicsController> {
@@ -17,9 +17,13 @@ class ComicsPage extends GetView<ComicsController> {
       return Scaffold(
           appBar: AppBar(
             backgroundColor: MyColors.red,
-            title: Image.asset(
-              'assets/img/logo.png',
-              width: 100,
+            title: InputText(
+              hintText: "Pesquisar...",
+              textInputType: TextInputType.name,
+              showTitle: false,
+              onFieldSubmitted: controller.getComicsForTitle,
+              textCapitalization: TextCapitalization.words,
+              textController: controller.filterSearch,
             ),
             centerTitle: true,
           ),
@@ -29,11 +33,10 @@ class ComicsPage extends GetView<ComicsController> {
                     itemCount: controller.comic.length,
                     itemBuilder: (context, index) => Card(
                       elevation: 6,
-                      margin: const EdgeInsets.all(10),
+                      margin: EdgeInsets.all(10),
                       child: ListTile(
                         leading: ClipRRect(
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(50)),
+                          borderRadius: BorderRadius.all(Radius.circular(50)),
                           child: Container(
                             height: 50,
                             color: Colors.red,
@@ -45,9 +48,9 @@ class ComicsPage extends GetView<ComicsController> {
                               imageUrl:
                                   "${controller.comic[index].thumbnail!.path}/landscape_medium.jpg",
                               placeholder: (context, url) =>
-                                  const CircularProgressIndicator(),
+                                  CircularProgressIndicator(),
                               errorWidget: (context, url, error) =>
-                                  const Icon(Icons.error),
+                                  Icon(Icons.error),
                             ),
                           ),
                         ),
@@ -55,7 +58,7 @@ class ComicsPage extends GetView<ComicsController> {
                           controller.comic[index].title.toString(),
                         ),
                         subtitle: Padding(
-                          padding: const EdgeInsets.only(top: 10, bottom: 10),
+                          padding: EdgeInsets.only(top: 10, bottom: 10),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -67,10 +70,10 @@ class ComicsPage extends GetView<ComicsController> {
                           ),
                         ),
                         trailing: IconButton(
-                          icon: const Icon(Icons.arrow_forward_outlined),
+                          icon: Icon(Icons.arrow_forward_outlined),
                           onPressed: () {
                             Get.to(
-                              const ComicsDetailsPage(),
+                              ComicsDetailsPage(),
                               binding: ComicsDetailBinding(),
                               arguments: ComicsDetailsArgs(
                                 comics: controller.comic[index],
@@ -80,7 +83,7 @@ class ComicsPage extends GetView<ComicsController> {
                         ),
                         onTap: () {
                           Get.to(
-                            const ComicsDetailsPage(),
+                            ComicsDetailsPage(),
                             binding: ComicsDetailBinding(),
                             arguments: ComicsDetailsArgs(
                               comics: controller.comic[index],
@@ -92,20 +95,20 @@ class ComicsPage extends GetView<ComicsController> {
                   ),
                 )
               : Container(
-                  margin: const EdgeInsets.fromLTRB(18, 0, 18, 0),
+                  margin: EdgeInsets.fromLTRB(18, 0, 18, 0),
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(5, 4, 5, 4),
+                    padding: EdgeInsets.fromLTRB(5, 4, 5, 4),
                     child: Shimmer.fromColors(
-                      period: const Duration(seconds: 2),
+                      period: Duration(seconds: 2),
                       child: Column(
                         children: [0, 1, 2, 3, 4, 5]
                             .map(
                               (_) => Padding(
-                                padding: const EdgeInsets.only(bottom: 8.0),
+                                padding: EdgeInsets.only(bottom: 8.0),
                                 child: Column(
                                   children: [
                                     Padding(
-                                      padding: const EdgeInsets.only(top: 5),
+                                      padding: EdgeInsets.only(top: 5),
                                       child: Row(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
@@ -120,7 +123,7 @@ class ComicsPage extends GetView<ComicsController> {
                                                   height: 8.0,
                                                   color: Colors.white,
                                                 ),
-                                                const Padding(
+                                                Padding(
                                                   padding: EdgeInsets.symmetric(
                                                       vertical: 2.0),
                                                 ),
@@ -129,7 +132,7 @@ class ComicsPage extends GetView<ComicsController> {
                                                   height: 8.0,
                                                   color: Colors.white,
                                                 ),
-                                                const Padding(
+                                                Padding(
                                                   padding: EdgeInsets.symmetric(
                                                     vertical: 2.0,
                                                   ),
@@ -141,7 +144,7 @@ class ComicsPage extends GetView<ComicsController> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsets.only(top: 10),
+                                      padding: EdgeInsets.only(top: 10),
                                       child: Row(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
@@ -152,7 +155,7 @@ class ComicsPage extends GetView<ComicsController> {
                                                     .size
                                                     .width -
                                                 46,
-                                            decoration: const BoxDecoration(
+                                            decoration: BoxDecoration(
                                               color: Colors.white,
                                             ),
                                           ),

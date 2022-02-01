@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:marvel_persons/models/args/comicsDetailsArgs.dart';
 import 'package:marvel_persons/models/comics_model.dart';
-import 'package:marvel_persons/repositories/get_for_api_repository.dart';
+import 'package:marvel_persons/repositories/marvel_repository.dart';
 
 class ComicsDetailController extends GetxController {
   GetAPIRepository homeRepository = GetAPIRepository();
